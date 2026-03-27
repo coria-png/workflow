@@ -7,10 +7,11 @@ import shutil
 
 
 all_cooked = Path("/home/user/step_container/final")
-raw = Path("/home/user/split")
+raw = Path("/home/user/raw_folder(i use this for importing raw and splitting big files)")
 step1 = Path("/home/user/step_container/step1")
 locker = Path("/home/user/step_container/busy.lock")
 
+#inserting 10 files at a time, cooldown at 30 seconds
 batch_size = 10
 cooldown = 30
 
@@ -22,7 +23,7 @@ def feed_machine():
         print("Machine is busy with last batch - Waiting")
         return
 
-    max_size = 100 * 1024 * 1024
+    max_size = 100 * 1024 * 1024 #my process wanted smaller files for processing <100mb
 
     all_files = [f for f in raw.iterdir() if f.is_file()]
 
@@ -30,21 +31,24 @@ def feed_machine():
     skipped_files = []
 
     for f in all_files:
+        #looking for specifically .txt files
         if f.suffix.lower() != ".txt":
             skipped_files.append((f, "not a .txt"))
             continue
-
+        
         if f.stat().st_size > max_size:
+            #looking for my split files
             skipped_files.append((f, "that's one too many syllables there bub"))
             continue
 
         valid_files.append(f)
 
+    #giving some reasons for failure
     if skipped_files:
         print("\nSkipped this:")
         for f, reason in skipped_files:
             print(f" - {f.name} cuz {reason}")
-
+            
     if not valid_files:
         print("Im outta bread")
         return
@@ -65,6 +69,7 @@ class OutputHandler(FileSystemEventHandler):
         
         print("got one more for ya")
 
+        #put a cooldown timer here so 10 output files dont turn into 100 input files
         if cooldown_timer is not None:
             cooldown_timer.cancel()
 
