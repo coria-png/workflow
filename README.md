@@ -19,3 +19,5 @@ for professional terminology this system has:
 
 ToDo(but probably wont):
 - debug cross-process interactions
+- add logging mechanism
+- make pipeline self-healing
