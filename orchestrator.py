@@ -6,7 +6,7 @@ from watchdog.events import FileSystemEventHandler
 from pathlib import Path
 
 orchestration_dir = Path("/home/user/step_container/")
-lock = Path("/home/user/step/busy.lock")
+lock = Path("/home/user/step_container/busy.lock")
 
 
 
