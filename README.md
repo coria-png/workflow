@@ -21,3 +21,6 @@ ToDo(but probably wont):
 - debug cross-process interactions
 - add logging mechanism
 - make pipeline self-healing
+- add automation for feeding
+- add automation to upload final products
+
