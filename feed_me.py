@@ -23,7 +23,7 @@ def feed_machine():
         print("Machine is busy with last batch - Waiting")
         return
 
-    max_size = 100 * 1024 * 1024 #my process wanted smaller files for processing <100mb
+    max_size = 100 * 1024 * 1024 #my process wanted smaller files to chew on <100mb
 
     all_files = [f for f in raw.iterdir() if f.is_file()]
 
